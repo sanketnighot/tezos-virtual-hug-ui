@@ -10,6 +10,7 @@
     },
     "dependencies": {
         "@airgap/beacon-sdk": "^4.0.4",
+        "@pinata/sdk": "^2.1.0",
         "@taquito/beacon-wallet": "^16.2.0",
         "@taquito/taquito": "^16.2.0",
         "@taquito/utils": "^17.5.1",

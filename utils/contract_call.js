@@ -31,11 +31,16 @@ export const sendHug = async (toAddress) => {
         nft_metadata["date"] = dateobj
         nft_metadata["name"] = nft_name
         nft_metadata["description"] = nft_description
-
-
+        console.log("Uploading to IPFS")
+        const res = await axios.post("/api/ipfs", { data: nft_metadata })
+        console.log(res.data.hash, res.data.hash)
+        if (res.data.status === "error") {
+            return false
+        }
         const nft_contract = await tezos.wallet.at(NFT_CONTRACT_ADDRESS)
         const hux_contract = await tezos.wallet.at(HUX_CONTRACT_ADDRESS)
-        const metadata = char2Bytes(JSON.stringify(res))
+        const metadata = char2Bytes(`ipfs://${res.data.hash}`)
+        console.log("Signing and Sending Transaction")
         const batch = await tezos.wallet.batch()
             .withContractCall(hux_contract.methods.update_operators([
                 {

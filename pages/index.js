@@ -19,10 +19,17 @@ export default function Home() {
 	}, []);
 
 	const onSendHugClick = async () => {
-		// await dappClient().connectAccount();
-		// const accounts = await dappClient().getAccount();
-		// setAccount(accounts.account);
-		await sendHug(toAddress)
+		await dappClient().connectAccount();
+		const accounts = await dappClient().getAccount();
+		setAccount(accounts.account);
+		const send_hug = await sendHug(toAddress)
+		if (send_hug) {
+			// <SuccessToast />
+			alert("Hug Sent Successfully")
+		} else {
+			// <ErrorToast />
+			alert("An Error Occured! Try Again")
+		}
 	};
 
 	const onDisconnectWallet = async () => {
