@@ -63,6 +63,6 @@ export const sendHug = async (toAddress) => {
             ])).send()
 
         await batch.confirmation()
-        return batch
+        return batch.opHash
     }
 }
