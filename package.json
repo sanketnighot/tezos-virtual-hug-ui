@@ -1,21 +1,33 @@
 {
-  "name": "tezos-virtual-hug-ui",
-  "version": "0.1.0",
-  "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
-  "dependencies": {
-    "react": "^18",
-    "react-dom": "^18",
-    "next": "14.0.4"
-  },
-  "devDependencies": {
-    "autoprefixer": "^10.0.1",
-    "postcss": "^8",
-    "tailwindcss": "^3.3.0"
-  }
+    "name": "tezos-virtual-hug-ui",
+    "version": "0.1.0",
+    "private": true,
+    "scripts": {
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start",
+        "lint": "next lint"
+    },
+    "dependencies": {
+        "@airgap/beacon-sdk": "^4.0.4",
+        "@taquito/beacon-wallet": "^16.2.0",
+        "@taquito/taquito": "^16.2.0",
+        "@taquito/utils": "^17.5.1",
+        "axios": "^1.6.5",
+        "fs": "^0.0.1-security",
+        "ipfs-http-client": "^60.0.1",
+        "next": "14.0.4",
+        "react": "^18",
+        "react-dom": "^18"
+    },
+    "devDependencies": {
+        "autoprefixer": "^10.4.16",
+        "postcss": "^8.4.33",
+        "tailwindcss": "^3.4.1"
+    },
+    "browser": {
+        "fs": false,
+        "path": false,
+        "os": false
+    }
 }

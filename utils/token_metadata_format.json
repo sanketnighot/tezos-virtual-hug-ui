@@ -1,0 +1,21 @@
+{
+    "artifactUri": "ipfs://QmWKkEXvcMSa2gktVQq7Jsx2NHx1CQdX2mSAEfannd6vWp",
+    "attributes": [],
+    "creators": [
+        "tz1iZbRAAsj6GfhPqiX3yCoW8F1cw7oXrxG1"
+    ],
+    "date": "2023-11-05T18:17:49.263070Z",
+    "decimals": 0,
+    "description": "This is Non Fungible token representing a virtual hug between A and B",
+    "image": "ipfs://QmWKkEXvcMSa2gktVQq7Jsx2NHx1CQdX2mSAEfannd6vWp",
+    "name": "Tezos Virtual Hug",
+    "rights": "No License / All Rights Reserved",
+    "symbol": "HUG",
+    "tags": [
+        "hug",
+        "pfp",
+        "hux",
+        "community"
+    ],
+    "thumbnailUri": "ipfs://QmWKkEXvcMSa2gktVQq7Jsx2NHx1CQdX2mSAEfannd6vWp"
+}
