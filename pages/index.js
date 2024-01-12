@@ -5,13 +5,14 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { dappClient } from '../utils/walletconnect'
 import { getHuxBalance, sendHug } from '../utils/contract_call'
+import { EXPLORER } from '../utils/config'
 
 export default function Home() {
 	const [account, setAccount] = useState();
-	const [toAddress, setToAddress] = useState();
+	const [toAddress, setToAddress] = useState('');
 	const [isSuccess, setIsSuccess] = useState(false);
 	const [isError, setIsError] = useState(false);
-	const [transactionMsg, setTransactionMsg] = useState()
+	const [transactionMsg, setTransactionMsg] = useState('')
 	const [isTxn, setIsTxn] = useState(false)
 
 	useEffect(() => {
@@ -36,7 +37,7 @@ export default function Home() {
 		if (send_hug) {
 			setIsSuccess(true)
 			setIsTxn(false)
-			setTransactionMsg(`https://ghostnet.tzkt.io/${send_hug}`)
+			setTransactionMsg(`${EXPLORER}/${send_hug}`)
 		}
 		else {
 			setIsError(true)
@@ -86,8 +87,8 @@ export default function Home() {
 						</svg>
 					</span></button>
 				{isTxn && <InfoAlert transactionMsg={transactionMsg} />}
-				{isSuccess && <SuccessAlert transactionMsg={transactionMsg} />}
-				{isError && <ErrorAlert />}
+				{isSuccess && <SuccessAlert transactionMsg={transactionMsg} setIsSuccess={setIsSuccess} />}
+				{isError && <ErrorAlert setIsError={setIsError} />}
 			</main>
 			{/* <SuccessToast /> */}
 			{/* <ErrorToast /> */}
@@ -95,44 +96,6 @@ export default function Home() {
 	)
 }
 
-
-const SuccessToast = () => {
-	return (
-		<div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 right-auto max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg mr-8 mb-8" role="alert">
-			<div className="flex p-4">
-				<div className="flex-shrink-0">
-					<svg className="flex-shrink-0 h-4 w-4 text-teal-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
-					</svg>
-				</div>
-				<div className="ms-3">
-					<p className="text-sm text-gray-700">
-						Successfully updated!
-					</p>
-				</div>
-			</div>
-		</div>
-	)
-}
-
-const ErrorToast = () => {
-	return (
-		<div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 right-auto max-w-xs bg-white border border-gray-200 rounded-xl shadow-lg mr-8 mb-8" role="alert">
-			<div className="flex p-4">
-				<div className="flex-shrink-0">
-					<svg class="flex-shrink-0 h-4 w-4 text-red-500 mt-0.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
-						<path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z" />
-					</svg>
-				</div>
-				<div className="ms-3">
-					<p className="text-sm text-gray-700">
-						An Error Occured! Try again
-					</p>
-				</div>
-			</div>
-		</div>
-	)
-}
 
 const InfoAlert = ({ transactionMsg }) => {
 	return (
@@ -152,7 +115,7 @@ const InfoAlert = ({ transactionMsg }) => {
 	)
 }
 
-const SuccessAlert = ({ transactionMsg }) => {
+const SuccessAlert = ({ transactionMsg, setIsSuccess }) => {
 	return (
 		<div id="alert-additional-content-3" class="p-4 mb-4 text-green-800 border border-green-300 rounded-lg bg-green-50" role="alert">
 			<div class="flex items-center">
@@ -173,7 +136,12 @@ const SuccessAlert = ({ transactionMsg }) => {
 						View Transaction
 					</div>
 				</a>
-				<button type="button" class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-green-600 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:focus:ring-green-800" data-dismiss-target="#alert-additional-content-3" aria-label="Close">
+				<button
+					type="button"
+					class="text-green-800 bg-transparent border border-green-800 hover:bg-green-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-green-600 dark:border-green-600 dark:text-green-400 dark:hover:text-white dark:focus:ring-green-800"
+					data-dismiss-target="#alert-additional-content-3"
+					aria-label="Close"
+					onClick={() => { setIsSuccess(false) }}>
 					Dismiss
 				</button>
 			</div>
@@ -181,7 +149,7 @@ const SuccessAlert = ({ transactionMsg }) => {
 	)
 }
 
-const ErrorAlert = () => {
+const ErrorAlert = ({ setIsError }) => {
 	return (
 		<div id="alert-additional-content-2" class="p-4 mb-4 text-red-800 border border-red-300 rounded-lg bg-red-50" role="alert">
 			<div class="flex items-center">
@@ -195,7 +163,12 @@ const ErrorAlert = () => {
 				- Check the transaction and Try Again
 			</div>
 			<div class="flex">
-				<button type="button" class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-red-600 dark:border-red-600 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800" data-dismiss-target="#alert-additional-content-2" aria-label="Close">
+				<button
+					type="button"
+					class="text-red-800 bg-transparent border border-red-800 hover:bg-red-900 hover:text-white focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 text-center dark:hover:bg-red-600 dark:border-red-600 dark:text-red-500 dark:hover:text-white dark:focus:ring-red-800"
+					data-dismiss-target="#alert-additional-content-2"
+					aria-label="Close"
+					onClick={() => { setIsError(false) }}>
 					Dismiss
 				</button>
 			</div>

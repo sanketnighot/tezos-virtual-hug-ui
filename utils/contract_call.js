@@ -1,6 +1,6 @@
 import { dappClient } from "./walletconnect";
 import { char2Bytes } from "@taquito/utils";
-import { NFT_CONTRACT_ADDRESS, HUX_CONTRACT_ADDRESS, API, JWT } from './config';
+import { NFT_CONTRACT_ADDRESS, HUX_CONTRACT_ADDRESS, API } from './config';
 import axios from "axios";
 import token_metadata from "./token_metadata_format.json"
 import { MichelsonMap } from '@taquito/taquito';
@@ -41,6 +41,7 @@ export const sendHug = async (toAddress) => {
         const hux_contract = await tezos.wallet.at(HUX_CONTRACT_ADDRESS)
         const metadata = char2Bytes(`ipfs://${res.data.hash}`)
         console.log("Signing and Sending Transaction")
+        console.log(myAddress.account.address)
         const batch = await tezos.wallet.batch()
             .withContractCall(hux_contract.methods.update_operators([
                 {
