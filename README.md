@@ -50,31 +50,31 @@ Allow tezos users to virtually "hug" each other and receive a memory of that "hu
 - utils
   - /config.js
 
-        This is the Main Configuration file we will need to edit
+    This is the Main Configuration file we will need to edit
 
-        ```jsx
-        // Network Name. For Mainnet use 'mainnet'
-        export const NETWORK = 'ghostnet'; 
-        
-        // RPC URL is used to connect to blockchain 
-        // for mainnet use "https://mainnet.ecadinfra.com"
-        // Also get more RPC URLs here
-        // - "https://tezostaquito.io/docs/rpc_nodes/"
-        export const RPC = 'https://ghostnet.ecadinfra.com';
-        
-        // This is the Explorer URL to track Transaction after Signing it
-        //For mainnet it will be 'https://tzkt.io'
-        export const EXPLORER = 'https://ghostnet.tzkt.io';
-        
-        // Smart Contract Address of NFT Contract will be here
-        export const NFT_CONTRACT_ADDRESS = 'KT1KWncvw3rj539n3ebqGW3XtWN76MU7X2xE';
-        
-        // Smart Contract Address of Token Contract will be here
-        export const HUX_CONTRACT_ADDRESS = 'KT1SCVXzraYHqoENcg8mkF3fTAr49VzuMFLf';
-        
-        // Tzkt API Url to check Balance. For mainnet use 'https://api.tzkt.io'
-        export const API = "https://api.ghostnet.tzkt.io";
-        ```
+    ```jsx
+    // Network Name. For Mainnet use 'mainnet'
+    export const NETWORK = 'ghostnet'; 
+    
+    // RPC URL is used to connect to blockchain 
+    // for mainnet use "https://mainnet.ecadinfra.com"
+    // Also get more RPC URLs here
+    // - "https://tezostaquito.io/docs/rpc_nodes/"
+    export const RPC = 'https://ghostnet.ecadinfra.com';
+    
+    // This is the Explorer URL to track Transaction after Signing it
+    //For mainnet it will be 'https://tzkt.io'
+    export const EXPLORER = 'https://ghostnet.tzkt.io';
+    
+    // Smart Contract Address of NFT Contract will be here
+    export const NFT_CONTRACT_ADDRESS = 'KT1KWncvw3rj539n3ebqGW3XtWN76MU7X2xE';
+    
+    // Smart Contract Address of Token Contract will be here
+    export const HUX_CONTRACT_ADDRESS = 'KT1SCVXzraYHqoENcg8mkF3fTAr49VzuMFLf';
+    
+    // Tzkt API Url to check Balance. For mainnet use 'https://api.tzkt.io'
+    export const API = "https://api.ghostnet.tzkt.io";
+    ```
 
   - /contract_call.js
 
