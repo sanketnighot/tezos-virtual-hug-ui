@@ -33,7 +33,7 @@ export default function Home() {
 			await dappClient().connectAccount();
 			const accounts = await dappClient().getAccount();
 			setAccount(accounts.account?.address);
-			setTransactionMsg(`Wallet Connected. Sending a Hug to ${toAddress}`)
+			setTransactionMsg(`Wallet Connected. Sending a million $HUX to ${toAddress}`)
 			const send_hug = await sendHug(toAddress)
 			setIsTxn(false)
 			if (send_hug) {
@@ -56,35 +56,35 @@ export default function Home() {
 	return (
 		<div className={`${styles.container}`}>
 			<Head>
-				<title>Tezos Virtual Hug</title>
-				<meta name="description" content="Send virtual hugs on the Tezos blockchain" />
+				<title>$HUX 4 ALL</title>
+				<meta name="description" content="Send a million $HUX to your Tezos friends" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 
 			<main className={`${styles.main} text-black font-mono`}>
 				<h1 className={`${styles.title}`}>
-					Tezos Virtual Hug
+					$HUX 4 ALL
 				</h1>
 
 				<Image className="mb-4 mt-6" src="/hug.jpeg" alt="Hugs" width={250} height={150} />
 
 				<p className={`${styles.description} mb-10 text-center justify-center`}>
-					<strong>Tezos Virtual Hug</strong> is a decentralized application that allows you to send virtual hugs on the Tezos blockchain. Just enter the wallet address of someone you want to send a hug to and Send a Hug. The <strong>HUG</strong> will be sent to You and the Tezos address you entered in form of a Non-Fungible Token.
+					<strong>Tezos Virtual Hug</strong> is a decentralized application that allows you to send virtual hugs on the Tezos blockchain. Just enter the wallet address of someone you want to send a hug. The <strong>HUG</strong> will be sent to You and the Tezos address you entered in form of a Non-Fungible Token.
 				</p>
 
-				<h3 className="mb-3">Transfer <span className="font-semibold">1,000,000 $HUX</span> to anyone so both of you get a <span className="font-semibold">$HUG NFT</span></h3>
+				<h3 className="mb-3">Transfer <span className="font-semibold">1,000,000 $HUX</span> to anyone so both of you get a <span className="font-semibold">$HUX NFT</span></h3>
 
 				<input
 					type="text"
 					id="default-input"
-					placeholder="Send a HUG to ..."
+					placeholder="tz..."
 					class="border border-white-300 text-black-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-3/6 p-2.5 mb-3 text-center placeholder-opacity-50"
 					value={toAddress}
 					onChange={(e) => { setToAddress(e.target.value) }}
 				/>
 				<button type="button" class="text-white bg-gradient-to-br from-green-400 to-blue-600 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2 w-3/6  justify-center"
 					onClick={async () => { await onSendHugClick() }}><span class="flex justify-center text-center">
-						Send a Hug&nbsp;
+						Send a million $HUX&nbsp;
 						<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
 							<path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
 						</svg>
@@ -126,7 +126,7 @@ const SuccessAlert = ({ transactionMsg, setIsSuccess }) => {
 					<path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
 				</svg>
 				<span class="sr-only">Info</span>
-				<h3 class="text-lg font-medium">Your Hug was Delivered Successfully</h3>
+				<h3 class="text-lg font-medium">Your $HUX were delivered successfully</h3>
 			</div>
 			<div class="mt-2 mb-4 text-sm">
 			</div>
