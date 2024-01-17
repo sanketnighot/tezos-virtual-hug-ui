@@ -14,6 +14,7 @@ export default function Home() {
 	const [isError, setIsError] = useState(false);
 	const [transactionMsg, setTransactionMsg] = useState('')
 	const [isTxn, setIsTxn] = useState(false)
+	const [errorMsg, setErrorMsg] = useState(false)
 
 	useEffect(() => {
 		(async () => {
@@ -24,30 +25,32 @@ export default function Home() {
 	}, []);
 
 	const onSendHugClick = async () => {
-		setIsError(false)
-		setIsSuccess(false)
-		setIsTxn(true)
-		setTransactionMsg("Connecting to Wallet")
-		await dappClient().connectAccount();
-		const accounts = await dappClient().getAccount();
-		setAccount(accounts.account?.address);
-		setTransactionMsg(`Wallet Connected. Sending a Hug to ${toAddress}`)
-		const send_hug = await sendHug(toAddress)
-		setIsTxn(false)
-		if (send_hug) {
-			setIsSuccess(true)
+		try {
+			setIsError(false)
+			setIsSuccess(false)
+			setIsTxn(true)
+			setTransactionMsg("Connecting to Wallet")
+			await dappClient().connectAccount();
+			const accounts = await dappClient().getAccount();
+			setAccount(accounts.account?.address);
+			setTransactionMsg(`Wallet Connected. Sending a Hug to ${toAddress}`)
+			const send_hug = await sendHug(toAddress)
 			setIsTxn(false)
-			setTransactionMsg(`${EXPLORER}/${send_hug}`)
-		}
-		else {
+			if (send_hug) {
+				setIsSuccess(true)
+				setIsTxn(false)
+				setTransactionMsg(`${EXPLORER}/${send_hug}`)
+			}
+			else {
+				setIsError(true)
+				setIsTxn(false)
+			}
+		} catch (error) {
 			setIsError(true)
 			setIsTxn(false)
+			setErrorMsg(error.message)
 		}
-	};
 
-	const onDisconnectWallet = async () => {
-		await dappClient().disconnectWallet();
-		setAccount(false);
 	};
 
 	return (
@@ -88,7 +91,7 @@ export default function Home() {
 					</span></button>
 				{isTxn && <InfoAlert transactionMsg={transactionMsg} />}
 				{isSuccess && <SuccessAlert transactionMsg={transactionMsg} setIsSuccess={setIsSuccess} />}
-				{isError && <ErrorAlert setIsError={setIsError} />}
+				{isError && <ErrorAlert setIsError={setIsError} errorMsg={errorMsg} />}
 			</main>
 			{/* <SuccessToast /> */}
 			{/* <ErrorToast /> */}
@@ -149,7 +152,7 @@ const SuccessAlert = ({ transactionMsg, setIsSuccess }) => {
 	)
 }
 
-const ErrorAlert = ({ setIsError }) => {
+const ErrorAlert = ({ setIsError, errorMsg }) => {
 	return (
 		<div id="alert-additional-content-2" class="p-4 mb-4 text-red-800 border border-red-300 rounded-lg bg-red-50" role="alert">
 			<div class="flex items-center">
@@ -160,7 +163,7 @@ const ErrorAlert = ({ setIsError }) => {
 				<h3 class="text-lg font-medium">There was an Error in the transaction</h3>
 			</div>
 			<div class="mt-2 mb-4 text-sm">
-				- Check the transaction and Try Again
+				- {errorMsg}
 			</div>
 			<div class="flex">
 				<button

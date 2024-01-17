@@ -3,10 +3,15 @@ import { char2Bytes } from "@taquito/utils";
 import { NFT_CONTRACT_ADDRESS, HUX_CONTRACT_ADDRESS, API } from './config';
 import axios from "axios";
 import token_metadata from "./token_metadata_format.json"
-import { MichelsonMap } from '@taquito/taquito';
+import nft_images from "./nft_images.json"
+
+export const getTotalNftsMinted = async () => {
+    return parseInt((await axios.get(`${API}/v1/contracts/${NFT_CONTRACT_ADDRESS}/storage`)).data.all_tokens)
+}
 
 
 export const sendHug = async (toAddress) => {
+    getTotalNftsMinted()
     await dappClient().CheckIfWalletConnected()
     const myAddress = await dappClient().getAccount()
     const tezos = await dappClient().tezos();
@@ -17,6 +22,14 @@ export const sendHug = async (toAddress) => {
     nft_metadata["date"] = dateobj
     nft_metadata["name"] = nft_name
     nft_metadata["description"] = nft_description
+    const totalNfts = await getTotalNftsMinted()
+    if (totalNfts < 42) {
+        nft_metadata["image"] = nft_images[totalNfts].ipfs
+        nft_metadata["thumbnailUri"] = nft_images[totalNfts].ipfs
+        nft_metadata["artifactUri"] = nft_images[totalNfts].ipfs
+    } else {
+        return
+    }
     console.log("Uploading to IPFS")
     const res = await axios.post("/api/ipfs", { data: nft_metadata })
     console.log(res.data.hash, res.data.hash)
